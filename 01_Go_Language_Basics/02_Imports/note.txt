@@ -1,0 +1,75 @@
+"go mod tidy" keeps your module dependencies clean and correct by adding missing and removing unused packages.
+
+"go list" shows the import path of a Go package or module — helpful for inspecting project structure or dependency metadata.
+
+| Use case                         | Use `go get`?                                      |
+| -------------------------------- | -------------------------------------------------- |
+| Add a dependency to your project | ❌ Use `import` + `go run` or `go mod tidy` instead |
+| Install a CLI tool globally      | ✅ Yes (like `go get github.com/xyz/tool@latest`)   |
+| Upgrade/downgrade a module       | ✅ Yes (like `go get github.com/abc/pkg@v1.2.3`)    |
+
+
+📝 Go Packages & Modules - Notes
+
+1. Package
+- A package is a collection of Go source files in the same directory with the same `package` name.
+- Every `.go` file must declare its package at the top using `package <name>`.
+- The `main` package defines the entry point of a Go application with the `func main()`.
+
+2. Module
+- A module is a collection of packages, defined by a `go.mod` file at its root.
+- The module path is usually the repository path (e.g., github.com/username/project).
+- Use `go mod init <module-path>` to initialize a new module.
+
+3. Library
+- A library is an informal term for a reusable Go package or module.
+- E.g., `github.com/fatih/color` is a module containing the `color` package.
+
+4. Importing Packages
+- Use `import "<module-path>/<package>"` to use an external package.
+- Dependencies are downloaded automatically by `go run`, `go build`, or `go mod tidy`.
+
+5. Naming Conflicts
+- If your custom package has the same name as a standard one (e.g., `math`), use import aliases:
+  import (
+      stdmath "math"
+      mymath "github.com/you/myproject/math"
+  )
+
+6. Custom Package Same Name as Standard
+- Creating your own `package math` does NOT override Go’s built-in `math`.
+- Go will only use the imported package based on the import path, not just the package name.
+
+7. init() Function
+- `init()` runs automatically before `main()`.
+- Useful for setup, debugging, logging, etc.
+- Each file and package can have its own `init()`; multiple `init()` functions are allowed.
+
+8. go.mod vs go.sum
+- `go.mod` defines your module path and required dependencies.
+- `go.sum` stores cryptographic checksums for security and reproducibility.
+
+9. go list
+- `go list` shows import paths of current packages.
+- `go list -m all` lists all modules used in the project.
+- `go list -m -f '{{.Dir}}' <module>` shows where a module is located on your system.
+
+10. go get
+- Used to upgrade/downgrade module versions or install CLI tools.
+- Not typically needed to fetch new libraries; just `import` them and run `go mod tidy`.
+
+11. One main() per package
+- You can only have one `func main()` per `main` package.
+- Other packages should not contain `main()` unless they’re entry points for separate binaries.
+
+12. Folder vs Package
+- Each folder typically represents one package.
+- You should not define multiple package names in a single folder.
+
+13. Semicolons
+- Go inserts semicolons automatically; you rarely (if ever) write them manually.
+- Only needed if writing multiple statements on one line (not recommended).
+
+
+
+
