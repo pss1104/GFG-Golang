@@ -1,0 +1,49 @@
+📝 Go: Default Values & Shorthand Declaration
+
+1. Default (Zero) Values in Go
+-------------------------------
+
+In Go, when a variable is declared without an explicit initializer,
+it is automatically assigned a **zero value** based on its type.
+
+Here are the default values:
+
+1. Integers (int, int8, int64, etc.)      => 0
+2. Floats (float32, float64)              => 0.0
+3. Boolean (bool)                         => false
+4. String                                 => "" (empty string)
+5. Arrays & Slices                        => [0, 0, 0] or [] (zero elements with zero values)
+6. Maps                                   => nil (uninitialized map, not an empty one)
+7. Pointers & Interfaces                  => nil
+
+Notes:
+- An uninitialized map is `nil`, and accessing it causes a runtime panic.
+- Arrays always have fixed size and are fully initialized with default values.
+- Slices, maps, and channels must be explicitly initialized with `make` or a literal.
+
+---------------------------------------------------
+
+2. Shorthand Declaration (`:=`)
+-------------------------------
+
+Go allows short variable declaration within functions:
+
+    name := value
+
+This is a compact way to declare and initialize variables:
+
+    x := 10           // type inferred as int
+    pi := 3.14        // float64
+    active := true    // bool
+    name := "GoLang"  // string
+
+Rules:
+- Can only be used **inside functions**
+- Automatically infers the variable’s type
+- Cannot redeclare the same variable in the same scope unless at least one is new
+
+---------------------------------------------------
+
+✅ TL;DR
+- All types in Go have a default "zero value"
+- Use `:=` for clean, short declarations in functions

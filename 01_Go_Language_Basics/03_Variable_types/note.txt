@@ -1,0 +1,106 @@
+Go Data Types - Quick Reference
+===============================
+
+1. Basic Data Types
+-------------------
+int, float, boolean, string
+
+Type                  | Description                            | Example
+----------------------|----------------------------------------|--------------------------
+int                   | Integer (platform-dependent size)      | var x int = 42
+int8–int64            | Signed integers of specific size       | var x int32 = 1000
+uint8–uint64          | Unsigned integers                      | var x uint8 = 255
+float32, float64      | Floating-point numbers                 | var pi float64 = 3.14
+complex64, complex128 | Complex numbers                        | var c complex64 = 2 + 3i
+byte                  | Alias for uint8                        | var b byte = 'A'
+rune                  | Alias for int32 (Unicode code point)   | var r rune = '文'
+bool                  | Boolean (true or false)                | var done bool = true
+string                | Text                                   | var name string = "Go"
+
+2. Aggregate/Composite Data Types
+-----------------------
+
+Type   | Description
+-------|---------------------------------------
+array  | Fixed-size collection of elements
+slice  | Dynamically-sized view of an array
+struct | Collection of fields (like a class)
+map    | Key-value pairs (like a dictionary)
+
+Example:
+
+    var a [3]int          // array
+    var s []string        // slice
+    var m map[string]int  // map
+    type Point struct {
+        X int
+        Y int
+    }
+
+3. Special Types
+----------------
+
+Type        | Description
+------------|----------------------------------------------
+interface{} | Empty interface — can hold any value
+error       | Interface for error handling (Error() string)
+
+4. Pointer Types
+----------------
+
+    var p *int    // pointer to an int
+
+Note: Go supports pointers but not pointer arithmetic (like in C/C++).
+
+5. Function Type
+----------------
+
+Functions are first-class citizens and can be assigned to variables.
+
+    var f func(int) int
+
+6. Example Program (Basic Types)
+--------------------------------
+
+    package main
+
+    import "fmt"
+
+    func main() {
+        var i int = 42
+        var f float64 = 3.14
+        var b byte = 'G'
+        var s string = "Hello"
+        var ok bool = true
+
+        fmt.Println(i, f, b, s, ok)
+    }
+
+TL;DR Summary
+-------------
+
+- Numeric: int, uint, float, complex, byte, rune
+- Text: string
+- Boolean: bool
+- Aggregate: array, slice, map, struct
+- Special: interface{}, error, pointer, function
+
+7. Channel Type
+---------------
+
+Channels are used to communicate between goroutines safely and concurrently.
+
+    var ch chan int         // Unbuffered channel of int
+    ch := make(chan string) // Create a channel for strings
+
+You can:
+- Send values into a channel:  ch <- 42
+- Receive values from a channel:  val := <-ch
+
+Channels can be:
+- Unbuffered: block until the other side is ready
+- Buffered: allow a fixed number of values before blocking (e.g., make(chan int, 3))
+
+Close a channel with `close(ch)` to signal no more values will be sent.
+
+Use `select` to handle multiple channel operations concurrently.

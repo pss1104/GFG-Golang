@@ -15,6 +15,8 @@ func PrintMessage(message string) {
 var X int = 10 // Exported variable ( capital letter ), accessible outside the package
 var Y int = 20
 
+// Z:=25 //:= Short variable declaration, only works inside functions
+
 // var z int = 30 // Unexported variable (small letter) , not accessible outside the package
 
 // Add is a function that adds two integers and returns the result
