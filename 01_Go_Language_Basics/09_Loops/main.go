@@ -30,6 +30,12 @@ func main() {
 	}
 
 	// Range Loop (for iterating over slices, arrays, maps, etc.)
+	// range can also be used without slice or array
+	fmt.Println("\nRange Loop 1 to 5:")
+	for i := range 5 { //same as for i := 0; i < 5; i++
+		fmt.Println(i)
+	}
+
 	fmt.Println("\nRange Loop:")
 	slice := []string{"apple", "banana", "cherry"}
 	for index, value := range slice {
@@ -67,9 +73,16 @@ func main() {
 		fmt.Println("Fruit:", fruit)
 	}
 	// Nested loops
+	// loops can be labeled in Go, allowing you to break or continue specific loops
 	fmt.Println("\nNested Loops:")
-	for i := 1; i <= 3; i++ {
-		for j := 1; j <= 3; j++ {
+	// nested loop example with label
+OuterLoop:
+	for i := range 3 {
+		for j := range 3 {
+			if i == 1 && j == 1 {
+				fmt.Println("Breaking out of outer loop at i=1, j=1")
+				break OuterLoop // break out of the outer loop
+			}
 			fmt.Printf("i: %d, j: %d\n", i, j)
 		}
 	}

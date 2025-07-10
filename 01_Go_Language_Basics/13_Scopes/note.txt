@@ -1,0 +1,6 @@
+Scopes:
+1. package level
+2. function
+3. block
+4. loop
+5. closure or Anonymous function scope
