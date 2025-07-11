@@ -3,9 +3,11 @@ package main
 import "fmt"
 
 func main() {
+	//map declaration
 	var em map[string]int
 	fmt.Println("empty map: ", em)
 
+	//using map literal
 	m := map[string]int{
 		"banana": 6,
 		"apple":  10,
@@ -13,6 +15,7 @@ func main() {
 	}
 	fmt.Println("fruit-cost map: ", m)
 
+	//using make to create a map (multi dimensional map)
 	mm := make(map[string]map[string]int)
 	mm["Sai"] = map[string]int{
 		"Maths":   100,

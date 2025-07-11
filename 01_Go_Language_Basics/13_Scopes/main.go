@@ -26,6 +26,9 @@ func loopScope() {
 	}
 	// fmt.Println(loopVar) // This will cause an error because loopVar is not accessible here
 }
+
+// lexical scoping in Go allows functions to access variables from their enclosing scope, which is known as closure.
+// A closure is a function that captures the variables from its surrounding context, allowing it to access those variables even after the context has exited.
 func counter() func() int {
 	count := 0
 	return func() int {

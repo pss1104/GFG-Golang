@@ -51,7 +51,8 @@ func factorial(n int) int {
 	return n * factorial(n-1)
 }
 
-// Function with multiple return types
+// Return types can be named or unnamed. You can not mix them both, use wither unnamed or named
+// Function with multiple return types (unnamed)
 func divide(a, b float64) (float64, error) {
 	if b == 0 {
 		return 0, fmt.Errorf("division by zero")
@@ -59,7 +60,7 @@ func divide(a, b float64) (float64, error) {
 	return a / b, nil
 }
 
-// Function with named return values - swapping two integers
+// Function with named return values (named) - swapping two integers
 func swap(x, y int) (a int, b int) {
 	a = y
 	b = x
