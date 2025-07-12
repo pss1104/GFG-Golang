@@ -24,7 +24,7 @@ func main() {
 	fmt.Println(<-unbufferedChannel)
 
 	// Buffered channel example
-	bufferedChannel := make(chan string, 2)
+	bufferedChannel := make(chan string, 2) //channel with a buffer size of 2
 
 	bufferedChannel <- "Hello from buffered channel 1"
 	bufferedChannel <- "Hello from buffered channel 2"
