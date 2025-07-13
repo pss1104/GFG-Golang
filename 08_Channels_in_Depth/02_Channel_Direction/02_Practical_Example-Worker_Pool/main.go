@@ -6,48 +6,42 @@ import (
 	"time"
 )
 
-// Worker function that processes tasks from a task channel and sends results on a result channel
-func worker(id int, tasks <-chan int, results chan<- int, wg *sync.WaitGroup) {
-	for task := range tasks {
-		result := processTask(task)
-		results <- result
-		fmt.Printf("Worker %d processed task %d\n", id, task)
-	}
-	wg.Done()
-}
+func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
+	defer wg.Done() // Defer to ensure Done() is called when worker finishes
 
-// Simulates task processing
-func processTask(task int) int {
-	time.Sleep(time.Second) // Simulate time-consuming task
-	return task * 2
+	for j := range jobs {
+		fmt.Printf("worker %d started job %d\n", id, j)
+		time.Sleep(time.Second) // Simulating work
+		fmt.Printf("worker %d finished job %d\n", id, j)
+		results <- j * 2 // Send the result back to results channel
+	}
 }
 
 func main() {
-	const numWorkers = 3
-	const numTasks = 5
+	const numJobs = 5
+	jobs := make(chan int, numJobs)    // Task channel
+	results := make(chan int, numJobs) // Result channel
 
-	tasks := make(chan int, numTasks)   // Task channel (receive-only for workers)
-	results := make(chan int, numTasks) // Result channel (send-only for workers)
 	var wg sync.WaitGroup
 
-	// Start worker goroutines
-	for i := 1; i <= numWorkers; i++ {
+	// Launching 3 workers.
+	for w := 1; w <= 3; w++ {
 		wg.Add(1)
-		go worker(i, tasks, results, &wg)
+		go worker(w, jobs, results, &wg)
 	}
 
-	// Send tasks to the worker pool
-	for j := 1; j <= numTasks; j++ {
-		tasks <- j
+	// Sending 5 jobs to the job channel
+	for j := 1; j <= numJobs; j++ {
+		jobs <- j
 	}
-	close(tasks) // Close tasks channel when no more tasks are left to send
+	close(jobs) // Close job channel to indicate no more jobs will be sent
 
-	// Wait for all workers to finish
+	// Waiting for all workers to finish.
 	wg.Wait()
-	close(results) // Close results channel after workers are done
+	close(results) // Close result channel when all workers are done
 
-	// Print results
-	for result := range results {
-		fmt.Println("Result:", result)
+	// Collecting results.
+	for r := range results {
+		fmt.Println("result:", r)
 	}
 }
