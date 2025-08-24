@@ -1,7 +1,9 @@
 // Go routine - a lightweight thread managed by the Go runtime
+// Goroutines are functions or methods that run concurrently with other functions or methods.
 // goroutines are used to perform concurrent tasks
 // go function() starts a new goroutine
-// main(0) does not wait for goroutines to finish by default
+// main() does not wait for goroutines to finish by default
+// a goroutine starts with a stack of only 2KB
 
 package main
 
