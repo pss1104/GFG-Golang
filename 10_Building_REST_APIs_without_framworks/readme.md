@@ -1,4 +1,4 @@
-CarInventory/
+Standard Go Project Structure/
 ├── main.go
 ├── config/
 │   └── db.go
